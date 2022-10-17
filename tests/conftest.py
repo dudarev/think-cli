@@ -7,6 +7,7 @@ from click.testing import CliRunner
 
 FILE_1_NAME = "file-1.md"
 FILE_2_NAME = "file-2.md"
+OBSIDIAN_DIR_NAME = ".obsidian"
 FILE_1_CONTENT = "FILE 1 CONTENT"
 FILE_2_CONTENT = "FILE 2 CONTENT"
 
@@ -23,3 +24,9 @@ def two_files(cli_runner_and_dir):
     runner, tmp_dir = cli_runner_and_dir
     (tmp_dir / FILE_1_NAME).write_text(FILE_1_CONTENT)
     (tmp_dir / FILE_2_NAME).write_text(FILE_2_CONTENT)
+
+
+@pytest.fixture
+def obsidian_dir(cli_runner_and_dir):
+    runner, tmp_dir = cli_runner_and_dir
+    (tmp_dir / OBSIDIAN_DIR_NAME).mkdir()

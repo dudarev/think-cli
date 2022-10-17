@@ -15,8 +15,9 @@ def test_list_zero(cli_runner_and_dir: tuple[CliRunner, Path]):
     assert result.output == ""
 
 
-def test_list_two(cli_runner_and_dir: tuple[CliRunner, Path], two_files):
-
+def test_list_two_with_hidden(
+    cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_dir
+):
     cli_runner, tmp_dir = cli_runner_and_dir
     result = cli_runner.invoke(ls)
     assert result.exit_code == 0

@@ -31,7 +31,8 @@ def ls():
     utcnow = datetime.utcnow()
     for p in Path().iterdir():
         if (utcnow - datetime.fromtimestamp(os.path.getmtime(p))).days < DAYS_TO_SELECT:
-            files.append((os.path.getmtime(p), p))
+            if str(p).endswith(".md"):
+                files.append((os.path.getmtime(p), p))
     files.sort(reverse=True)
     for f in files:
         click.echo(f[1])
