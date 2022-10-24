@@ -21,12 +21,12 @@ def cli_runner_and_dir(tmp_path) -> tuple[CliRunner, Path]:
 
 @pytest.fixture
 def two_files(cli_runner_and_dir):
-    runner, tmp_dir = cli_runner_and_dir
+    _, tmp_dir = cli_runner_and_dir
     (tmp_dir / FILE_1_NAME).write_text(FILE_1_CONTENT)
     (tmp_dir / FILE_2_NAME).write_text(FILE_2_CONTENT)
 
 
 @pytest.fixture
 def obsidian_dir(cli_runner_and_dir):
-    runner, tmp_dir = cli_runner_and_dir
+    _, tmp_dir = cli_runner_and_dir
     (tmp_dir / OBSIDIAN_DIR_NAME).mkdir()

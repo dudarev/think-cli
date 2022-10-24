@@ -17,3 +17,12 @@ $ t ls
 FILE-2.md
 FILE-1.md
 ```
+
+## random
+
+Return a random file
+
+```shell
+$ t random
+FILE-1.md
+```
