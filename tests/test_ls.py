@@ -33,3 +33,16 @@ def test_list_two_with_and_one_yesterday(
     result = cli_runner.invoke(ls)
     assert result.exit_code == 0
     assert result.output == f"{FILE_2_NAME}\n{FILE_1_NAME}\n"
+
+
+def test_list_two_with_hidden_as_links(
+    cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_dir
+):
+
+    cli_runner, _ = cli_runner_and_dir
+    result = cli_runner.invoke(ls, "-l")
+    assert result.exit_code == 0
+    assert (
+        result.output
+        == f"[[{FILE_2_NAME.replace('.md','')}]]\n[[{FILE_1_NAME.replace('.md', '')}]]\n"
+    )
