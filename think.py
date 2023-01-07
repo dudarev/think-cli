@@ -39,28 +39,35 @@ def is_modified_today(p: Path):
     return mtime > today_local
 
 
+def iter_markdown_files_modified_today():
+    for p in Path().iterdir():
+        if is_markdown(p) and is_modified_today(p):
+            yield p
+
+
 @click.command()
 def count():
     n_files = len(os.listdir())
     n_modified_day = 0
-    for p in Path().iterdir():
-        if is_markdown(p) and is_modified_today(p):
-            n_modified_day += 1
-
+    for _ in iter_markdown_files_modified_today():
+        n_modified_day += 1
     click.echo(f"Total files: {n_files}")
     click.echo(f"Modified today: {n_modified_day}")
 
 
+CONVERTER_FOR_LINKS_PARAMETER = {
+    True: lambda x: f'[[{str(x).replace(".md", "")}]]',
+    False: lambda x: x,
+}
+
+
 @click.command()
-def ls():
-    files = []
-    utcnow = datetime.utcnow()
-    for p in Path().iterdir():
-        if is_markdown(p) and is_modified_today(p):
-            files.append((os.path.getmtime(p), p))
+@click.option("-l", "--links", is_flag=True, help="List files changed today")
+def ls(links):
+    files = [(os.path.getmtime(p), p) for p in iter_markdown_files_modified_today()]
     files.sort(reverse=True)
     for f in files:
-        click.echo(f[1])
+        click.echo(CONVERTER_FOR_LINKS_PARAMETER[links](f[1]))
 
 
 @click.command()

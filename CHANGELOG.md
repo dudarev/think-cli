@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.1.5 (2023-01-07)
+### Added
+- `ls -l` list files as wiki links
+
+
 ## 0.1.4 (2022-12-03)
 ### Changed
 - `count` command by default counts file modified from midnight of today in local time
