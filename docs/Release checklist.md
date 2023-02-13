@@ -1,0 +1,3 @@
+- [ ] tests pass (`make test`)
+- [ ] [CHANGELOG](../CHANGELOG.md) is updated
+- [ ] version is updated in [setup.py](../setup.py)

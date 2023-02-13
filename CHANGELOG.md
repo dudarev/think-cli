@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.1.6 (2023-02-13)
+### Added
+- `Makefile`
+- `requirements-dev.txt` for development
+- help to every command
+
+### Changed
+- Documentation is moved to [docs/](docs/README.md)
+
+
 ## 0.1.5 (2023-01-07)
 ### Added
 - `ls -l` list files as wiki links

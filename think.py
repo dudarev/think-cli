@@ -45,7 +45,9 @@ def iter_markdown_files_modified_today():
             yield p
 
 
-@click.command()
+@click.command(
+    help="Prints the total number of files and number of files modified today"
+)
 def count():
     n_files = len(os.listdir())
     n_modified_day = 0
@@ -61,8 +63,8 @@ CONVERTER_FOR_LINKS_PARAMETER = {
 }
 
 
-@click.command()
-@click.option("-l", "--links", is_flag=True, help="List files changed today")
+@click.command(help="List files changed today")
+@click.option("-l", "--links", is_flag=True, help="Formats files as wiki links")
 def ls(links):
     files = [(os.path.getmtime(p), p) for p in iter_markdown_files_modified_today()]
     files.sort(reverse=True)
@@ -70,7 +72,7 @@ def ls(links):
         click.echo(CONVERTER_FOR_LINKS_PARAMETER[links](f[1]))
 
 
-@click.command()
+@click.command(help="Return a random .md file if it exists")
 def random():
     files = []
     for p in Path().iterdir():

@@ -1,28 +1,9 @@
 # think-cli
 
-## count
+Command line utility to analyse and work with local wikis, digital gardens, second brains.
 
-```shell
-$ t count
-Total files: 100
-Edited today: 10
-```
+To install, use `pip install -e .`.
 
-## ls
+For usage, see `t help`.
 
-List files edited in last 24 hours in reverse chronological order:
-
-```shell
-$ t ls
-FILE-2.md
-FILE-1.md
-```
-
-## random
-
-Return a random file
-
-```shell
-$ t random
-FILE-1.md
-```
+For more documentation, see [docs/README.md](docs/README.md).
