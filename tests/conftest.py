@@ -1,13 +1,10 @@
 import os
-
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from uuid import uuid4
 
 import pytest
-from pathlib import Path
-
 from click.testing import CliRunner
-
 
 LOCAL_TIMEZONE = datetime.now(timezone.utc).astimezone().tzinfo
 

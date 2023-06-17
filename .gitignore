@@ -160,3 +160,7 @@ cython_debug/
 .idea/
 
 .vscode
+.DS_Store
+
+scripts/
+out.txt

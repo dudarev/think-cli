@@ -2,9 +2,8 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-from think import ls
-
 from conftest import FILE_1_NAME, FILE_2_NAME
+from think import ls
 
 
 def test_list_zero(cli_runner_and_dir: tuple[CliRunner, Path]):

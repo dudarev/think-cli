@@ -1,9 +1,7 @@
 import os
 from pathlib import Path
 
-
 from click.testing import CliRunner
-
 
 from think import count
 
