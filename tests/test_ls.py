@@ -14,7 +14,7 @@ def test_list_zero(cli_runner_and_dir: tuple[CliRunner, Path]):
 
 
 def test_list_two_with_hidden(
-    cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_dir
+    cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_settings_dir
 ):
     cli_runner, _ = cli_runner_and_dir
     result = cli_runner.invoke(ls)
@@ -34,7 +34,7 @@ def test_list_two_with_and_one_yesterday(
 
 
 def test_list_two_with_hidden_as_links(
-    cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_dir
+    cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_settings_dir
 ):
     cli_runner, _ = cli_runner_and_dir
     result = cli_runner.invoke(ls, "-l")

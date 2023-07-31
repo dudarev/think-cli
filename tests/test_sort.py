@@ -1,16 +1,33 @@
 from pathlib import Path
 
 from click.testing import CliRunner
+import pytest
+from tests.assets import CONTENT_TO_SORT, SORTED_CONTENT, SORTED_CONTENT_REVERSED
 
-from tests.conftest import FILE_1_NAME, FILE_2_NAME
-from think import ls
+from tests.conftest import FixtureFile
+from think import sort_timestamps
 
 
-def test_sort(cli_runner_and_dir: tuple[CliRunner, Path], two_files, obsidian_dir):
+@pytest.mark.parametrize(
+    "file_with_content, flags, sorted_content",
+    [
+        pytest.param("", "", "", id="sort-empty"),
+        pytest.param("# Some title", "-r", "# Some title", id="sort-no-timestamp"),
+        pytest.param(CONTENT_TO_SORT, "", SORTED_CONTENT, id="sort"),
+        pytest.param(CONTENT_TO_SORT, "-r", SORTED_CONTENT_REVERSED, id="sort-reverse"),
+    ],
+    indirect=["file_with_content"],
+)
+def test_sort(
+    cli_runner_and_dir: tuple[CliRunner, Path],
+    file_with_content: FixtureFile,
+    flags: str,
+    sorted_content: str,
+):
     cli_runner, _ = cli_runner_and_dir
-    result = cli_runner.invoke(ls, "-l")
+    params = ["-i", str(file_with_content.path)]
+    if flags:
+        params.append(flags)
+    result = cli_runner.invoke(sort_timestamps, params)
     assert result.exit_code == 0
-    assert (
-        result.output
-        == f"[[{FILE_2_NAME.replace('.md','')}]]\n[[{FILE_1_NAME.replace('.md', '')}]]\n"
-    )
+    assert file_with_content.path.read_text() == sorted_content

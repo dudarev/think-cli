@@ -2,11 +2,6 @@
 
 ## Now
 
-- Add description to commands WIP
-- Create docs in thinking format, move this file there
-- Replace README with `t help`
-
-
 ## Future
 
 ### Could do
@@ -15,7 +10,6 @@
 - Protect main branch
 - Add tests on pull requests
 - Setup workflow, for example, [python-package](https://github.com/dudarev/think-cli/new/master?filename=.github%2Fworkflows%2Fpython-package.yml&workflow_template=ci%2Fpython-package)
-
 
 ### New commands
 

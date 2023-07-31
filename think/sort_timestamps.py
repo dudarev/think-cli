@@ -3,36 +3,21 @@ Sorts sections in a Markdown file based on timestamps in the header.
 It goes header by header and determines if an h2 header has a timestamp in the beginning in ISO format.
 Optionally there may be dash and some other text after the timestamp.
 It sorts all those sections based on the timestamps at the end of the returned text.
+Reverse option is available.
 """
+from pathlib import Path
 import re
 import sys
 
 import click
 
-TEST_TEXT = """
-Some text
-# Main title
 
-## 2020-01-03 - Some other title
-Some other text
-
-## 2020-01-01 - Some title
-Some text
-## Some non-timestamp title
-non-timestamp text
-## 2020-01-02 - Some other title
-Some other text
-"""
-
-
-def does_start_from_timestamp(text: str):
+def does_start_from_timestamp(text: str) -> bool:
     """Determines if the text is a timestamp header."""
-    # check if the text starts with a timestamp in ISO format
-    # return True or False
     return re.match(r"^\d{4}-\d{2}-\d{2}.+", text)
 
 
-def sort_timestamps(text: str, reverse=False):
+def do_sort(text: str, reverse=False) -> str:
     """Sorts all timestamps in the text."""
 
     # split the text based on `^## ` (h2 header)
@@ -40,21 +25,21 @@ def sort_timestamps(text: str, reverse=False):
     is_first_h2_header = "## " in text[:3]
     first_section = ""
     if not is_first_h2_header:
-        first_section, sections = sections[0], sections[1:]
+        first_section, sections = sections[0].strip(), sections[1:]
 
     # for each section, check if it starts with a timestamp
     non_timestamp_sections = []
     timestamp_sections = []
     for s in sections:
         if does_start_from_timestamp(s):
-            timestamp_sections.append(s)
+            timestamp_sections.append(s.strip())
         else:
-            non_timestamp_sections.append(s)
+            non_timestamp_sections.append(s.strip())
 
     timestamp_sections.sort(reverse=reverse)
 
     # return the text
-    return "## ".join(
+    return "\n\n\n## ".join(
         [
             first_section,
         ]
@@ -64,20 +49,23 @@ def sort_timestamps(text: str, reverse=False):
 
 
 @click.command(
-    help="Sort sections in a Markdown file based on timestamps in the header."
+    "sort", help="Sort sections in a Markdown file based on timestamps in the header."
 )
 @click.option(
     "-i",
     "--input-file",
     help="File to read input from, default is `sys.stdin`.",
-    type=click.File("r"),
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
     default=sys.stdin,
 )
-def sort(input_file):
-    with input_file:
-        text = input_file.read()
-        click.echo(sort_timestamps(text))
-
-
-if __name__ == "__main__":
-    print(sort_timestamps(TEST_TEXT, reverse=True))
+@click.option(
+    "-r",
+    "--reverse",
+    help="Reverse the order of the sorted timestamps.",
+    is_flag=True,
+    default=False,
+)
+def sort_timestamps(input_file: click.Path, reverse: bool):
+    input_path = Path(input_file)
+    out = do_sort(input_path.read_text(), reverse=reverse)
+    input_path.write_text(out)

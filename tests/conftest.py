@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -11,10 +12,23 @@ LOCAL_TIMEZONE = datetime.now(timezone.utc).astimezone().tzinfo
 
 FILE_1_NAME = "file-1.md"
 FILE_2_NAME = "file-2.md"
-FILE_1_CONTENT = "FILE 1 CONTENT"
-FILE_2_CONTENT = "FILE 2 CONTENT"
+FILE_1_CONTENT = "FILE 1 CONTENT [[file-2]] [[Another file]]"
+FILE_2_CONTENT = "FILE 2 CONTENT [[Link|Alias]]"
+FILE_1_CONVERTED_CONTENT = (
+    "FILE 1 CONTENT [file-2](file-2.md) [Another file](Another file.md)"
+)
+FILE_2_CONVERTED_CONTENT = "FILE 2 CONTENT [Alias](Link.md)"
 
-OBSIDIAN_DIR_NAME = ".obsidian"
+OBSIDIAN_SETTINGS_DIR_NAME = ".obsidian"
+
+FILE_WITH_TIMESTAMPS_CONTENT = """
+"""
+
+
+@dataclass
+class FixtureFile:
+    path: Path
+    content: str
 
 
 @pytest.fixture
@@ -25,10 +39,24 @@ def cli_runner_and_dir(tmp_path) -> tuple[CliRunner, Path]:
 
 
 @pytest.fixture
-def two_files(cli_runner_and_dir):
+def file_with_content(cli_runner_and_dir, request) -> FixtureFile:
     _, tmp_dir = cli_runner_and_dir
-    (tmp_dir / FILE_1_NAME).write_text(FILE_1_CONTENT)
-    (tmp_dir / FILE_2_NAME).write_text(FILE_2_CONTENT)
+    original_content = request.param
+    path = tmp_dir / "file.md"
+    path.write_text(original_content)
+    return FixtureFile(path=path, content=original_content)
+
+
+@pytest.fixture
+def two_files(cli_runner_and_dir) -> tuple[FixtureFile, FixtureFile]:
+    _, tmp_dir = cli_runner_and_dir
+    path_1 = tmp_dir / FILE_1_NAME
+    path_2 = tmp_dir / FILE_2_NAME
+    path_1.write_text(FILE_1_CONTENT)
+    path_2.write_text(FILE_2_CONTENT)
+    file_1 = FixtureFile(path=path_1, content=FILE_1_CONTENT)
+    file_2 = FixtureFile(path=path_2, content=FILE_2_CONTENT)
+    return (file_1, file_2)
 
 
 @pytest.fixture
@@ -61,6 +89,6 @@ def one_file_modified_after_midnight(random_markdown_file):
 
 
 @pytest.fixture
-def obsidian_dir(cli_runner_and_dir):
+def obsidian_settings_dir(cli_runner_and_dir):
     _, tmp_dir = cli_runner_and_dir
-    (tmp_dir / OBSIDIAN_DIR_NAME).mkdir()
+    (tmp_dir / OBSIDIAN_SETTINGS_DIR_NAME).mkdir()
