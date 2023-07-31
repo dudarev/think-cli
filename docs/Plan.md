@@ -2,20 +2,18 @@
 
 ## Now
 
-- Add description to commands WIP
-- Create docs in thinking format, move this file there
-- Replace README with `t help`
-
+- `copy` (or `fanout`, `fan-out`) to copy sections that have links to other documents into those documents
 
 ## Future
 
 ### Could do
 
+- Copy some notes from my Thinking vault
+- Add some linter
+- Add black's usage to `pyproject.toml` explicitly
 - Description how to "install" to vim (Mapping `\c` to `t count` etc.)
 - Protect main branch
-- Add tests on pull requests
-- Setup workflow, for example, [python-package](https://github.com/dudarev/think-cli/new/master?filename=.github%2Fworkflows%2Fpython-package.yml&workflow_template=ci%2Fpython-package)
-
+- Think about using aliases: https://github.com/click-contrib/click-aliases
 
 ### New commands
 

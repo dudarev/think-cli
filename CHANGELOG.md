@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.8 (2023-07-31)
+
+### Added
+
+- `sort` - Sort sections in a Markdown file based on timestamps in the header. The `--reverse` option allows reversing the order of the sorted timestamps. Example usage: `t sort -i filename.md`. The command can also be used with `stdin`.
+- `convert` - Convert all wikilinks in a Markdown file to Markdown links. For example, `[[2020-01-01 - Some title]]` is converted to `[2020-01-01 - Some title](2020-01-01 - Some title.md)`. Similarly, `[[Link|Alias]]` is converted to `[Alias](Link.md)`. The command can be used with a single file or a directory containing Markdown files. Usage: `t convert filename.md` or `t convert path/to/directory`.
+- Github workflow with tests on PRs to the main branch
+
 ## 0.1.7 (2023-06-17)
 
 ### Changed

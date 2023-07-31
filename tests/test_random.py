@@ -3,7 +3,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from conftest import FILE_1_NAME
+from tests.conftest import FILE_1_NAME
 from think import random
 
 
