@@ -11,13 +11,10 @@ import sys
 
 import click
 
-
-def does_start_from_timestamp(text: str) -> bool:
-    """Determines if the text is a timestamp header."""
-    return re.match(r"^\d{4}-\d{2}-\d{2}.+", text)
+from think.markdown import does_start_from_timestamp
 
 
-def do_sort(text: str, reverse=False) -> str:
+def sort_timestamps_in_text(text: str, reverse=False) -> str:
     """Sorts all timestamps in the text."""
 
     # split the text based on `^## ` (h2 header)
@@ -31,6 +28,8 @@ def do_sort(text: str, reverse=False) -> str:
     non_timestamp_sections = []
     timestamp_sections = []
     for s in sections:
+        if not s.strip():
+            continue
         if does_start_from_timestamp(s):
             timestamp_sections.append(s.strip())
         else:
@@ -38,14 +37,10 @@ def do_sort(text: str, reverse=False) -> str:
 
     timestamp_sections.sort(reverse=reverse)
 
+    all_sections = [first_section] + non_timestamp_sections + timestamp_sections
+
     # return the text
-    return "\n\n\n## ".join(
-        [
-            first_section,
-        ]
-        + non_timestamp_sections
-        + timestamp_sections
-    )
+    return "\n\n\n## ".join(all_sections).strip()
 
 
 @click.command(
@@ -67,5 +62,5 @@ def do_sort(text: str, reverse=False) -> str:
 )
 def sort_timestamps(input_file: click.Path, reverse: bool):
     input_path = Path(input_file)
-    out = do_sort(input_path.read_text(), reverse=reverse)
+    out = sort_timestamps_in_text(input_path.read_text(), reverse=reverse)
     input_path.write_text(out)

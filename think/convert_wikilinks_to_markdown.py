@@ -8,28 +8,16 @@ For example:
 """
 
 from pathlib import Path
-import re
 import click
 
-
-def do_conversion(text: str):
-    """
-    Replace all wikilinks with Markdown links.
-    [[Link]] -> [Link](Link.md)
-    [[Link|Alias]] -> [Alias](Link.md)
-    """
-    return re.sub(
-        r"\[\[(?P<filename>[^\]|]+)(\|(?P<alias>[^\]]+))?\]\]",
-        lambda match: f"[{match.group('alias') or match.group('filename')}]({match.group('filename')}.md)",
-        text,
-    )
+from think.markdown import convert_wikilinks_to_markdown
 
 
 def convert_file(input_path: Path):
     output_path = input_path.with_suffix(".md")
     click.echo(f"Converting {input_path}...")
     text = input_path.read_text()
-    text = do_conversion(text)
+    text = convert_wikilinks_to_markdown(text)
     output_path.write_text(text)
 
 

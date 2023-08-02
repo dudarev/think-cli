@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.2.0 (2023-08-02)
+
+### Added
+
+- New `fan` command to fan out sections from a file to other files based on links
+- New `think.markdown` module with helpers to parse and work with Markdown
+
+### Changed
+
+- Refactored tests to use assets instead of putting them in one file
+- Moved `convert_wikilinks_to_markdown` function to `think.markdown` module
+- A few bug fixes: `sort_timestamps` now sorts sections better
+
+### Removed
+
+- Removed `tests.assets.py` in favor of multiple assets files
+
 ## 0.1.8 (2023-07-31)
 
 ### Added

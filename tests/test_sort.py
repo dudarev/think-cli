@@ -2,7 +2,15 @@ from pathlib import Path
 
 from click.testing import CliRunner
 import pytest
-from tests.assets import CONTENT_TO_SORT, SORTED_CONTENT, SORTED_CONTENT_REVERSED
+from tests.assets.sort_timestamps import (
+    CONTENT_TO_SORT,
+    SORTED_CONTENT,
+    SORTED_CONTENT_REVERSED,
+    CONTENT_TO_SORT_WITH_NON_TIMESTAMP,
+    CONTENT_WITH_NON_TIMESTAMP_SORTED,
+    CONTENT_WITH_DATE_TO_SORT,
+    CONTENT_WITH_DATE_SORTED_REVERSED,
+)
 
 from tests.conftest import FixtureFile
 from think import sort_timestamps
@@ -15,6 +23,18 @@ from think import sort_timestamps
         pytest.param("# Some title", "-r", "# Some title", id="sort-no-timestamp"),
         pytest.param(CONTENT_TO_SORT, "", SORTED_CONTENT, id="sort"),
         pytest.param(CONTENT_TO_SORT, "-r", SORTED_CONTENT_REVERSED, id="sort-reverse"),
+        pytest.param(
+            CONTENT_TO_SORT_WITH_NON_TIMESTAMP,
+            "",
+            CONTENT_WITH_NON_TIMESTAMP_SORTED,
+            id="sort-non-timestamp",
+        ),
+        pytest.param(
+            CONTENT_WITH_DATE_TO_SORT,
+            "-r",
+            CONTENT_WITH_DATE_SORTED_REVERSED,
+            id="sort-date",
+        ),
     ],
     indirect=["file_with_content"],
 )
