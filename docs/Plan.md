@@ -2,17 +2,15 @@
 
 ## Now
 
-- `copy` (or `fanout`, `fan-out`) to copy sections that have links to other documents into those documents
-
 ## Future
 
 ### Could do
 
+- Consider creating stub vaults for testing, see https://github.com/mfarragher/obsidiantools/tree/main/tests/vault-stub
 - Copy some notes from my Thinking vault
 - Add some linter
 - Add black's usage to `pyproject.toml` explicitly
 - Description how to "install" to vim (Mapping `\c` to `t count` etc.)
-- Protect main branch
 - Think about using aliases: https://github.com/click-contrib/click-aliases
 
 ### New commands

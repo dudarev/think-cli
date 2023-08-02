@@ -4,7 +4,7 @@ requires = ["setuptools", "wheel"]
 
 [project]
 name = "think"
-version = "0.1.8"
+version = "0.2.0"
 description = "A command line tool to work with Markdown files"
 readme = "README.md"
 dependencies = ["Click>=8.1.3"]

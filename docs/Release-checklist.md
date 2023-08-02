@@ -1,16 +1,20 @@
 # Release checklist
 
-## Before release
+## Before merge
 
 - [ ] tests pass (`make test`)
 - [ ] [CHANGELOG](../CHANGELOG.md) is updated
-- [ ] version is updated in [VERSION](../VERSION) and [pyproject.toml](../pyproject.toml)
+- [ ] version is updated in [pyproject.toml](../pyproject.toml)
+- [ ] update [Plan](Plan.md) if needed
 
-## After release
+## After merge
 
-- [ ] add a tag for the release in git:
+- [ ] create the releas in [GitHub](https://github.com/dudarev/think-cli/releases/new)
 
-```bash
-git tag -a 0.1.0 -m "0.1.0"
-git push origin 0.1.0
+Sample title:
+
 ```
+0.1.8 - sort and convert commands
+```
+
+Copy description from [CHANGELOG](../CHANGELOG.md).
