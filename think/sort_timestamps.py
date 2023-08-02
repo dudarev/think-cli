@@ -13,8 +13,15 @@ import click
 
 
 def does_start_from_timestamp(text: str) -> bool:
-    """Determines if the text is a timestamp header."""
-    return re.match(r"^\d{4}-\d{2}-\d{2}.+", text)
+    """
+    Determines if the text is a timestamp header.
+
+    Examples:
+    2021-01-01
+    2021-01-01 - Some title
+    2021-01-01 12:00:00 - Some title
+    """
+    return re.match(r"^\d{4}-\d{2}-\d{2}", text.strip()) is not None
 
 
 def do_sort(text: str, reverse=False) -> str:
@@ -31,6 +38,8 @@ def do_sort(text: str, reverse=False) -> str:
     non_timestamp_sections = []
     timestamp_sections = []
     for s in sections:
+        if not s.strip():
+            continue
         if does_start_from_timestamp(s):
             timestamp_sections.append(s.strip())
         else:
@@ -38,14 +47,10 @@ def do_sort(text: str, reverse=False) -> str:
 
     timestamp_sections.sort(reverse=reverse)
 
+    all_sections = [first_section] + non_timestamp_sections + timestamp_sections
+
     # return the text
-    return "\n\n\n## ".join(
-        [
-            first_section,
-        ]
-        + non_timestamp_sections
-        + timestamp_sections
-    )
+    return "\n\n\n## ".join(all_sections).strip()
 
 
 @click.command(
