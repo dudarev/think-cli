@@ -9,7 +9,7 @@
 
 ## After merge
 
-- [ ] create the releas in [GitHub](https://github.com/dudarev/think-cli/releases/new)
+- [ ] create the release in [GitHub](https://github.com/dudarev/think-cli/releases/new)
 
 Sample title:
 
