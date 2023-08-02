@@ -2,7 +2,7 @@ from pathlib import Path
 
 from click.testing import CliRunner
 import pytest
-from tests.assets import (
+from tests.assets.sort_timestamps import (
     CONTENT_TO_SORT,
     SORTED_CONTENT,
     SORTED_CONTENT_REVERSED,
@@ -30,7 +30,10 @@ from think import sort_timestamps
             id="sort-non-timestamp",
         ),
         pytest.param(
-            CONTENT_WITH_DATE_TO_SORT, "-r", CONTENT_WITH_DATE_SORTED_REVERSED
+            CONTENT_WITH_DATE_TO_SORT,
+            "-r",
+            CONTENT_WITH_DATE_SORTED_REVERSED,
+            id="sort-date",
         ),
     ],
     indirect=["file_with_content"],

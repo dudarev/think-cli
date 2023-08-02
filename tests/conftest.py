@@ -10,6 +10,7 @@ from click.testing import CliRunner
 LOCAL_TIMEZONE = datetime.now(timezone.utc).astimezone().tzinfo
 
 
+# TODO: extract to assets
 FILE_1_NAME = "file-1.md"
 FILE_2_NAME = "file-2.md"
 FILE_1_CONTENT = "FILE 1 CONTENT [[file-2]] [[Another file]]"
@@ -39,12 +40,25 @@ def cli_runner_and_dir(tmp_path) -> tuple[CliRunner, Path]:
 
 
 @pytest.fixture
-def file_with_content(cli_runner_and_dir, request) -> FixtureFile:
+def file_with_content(cli_runner_and_dir, request: str) -> FixtureFile:
     _, tmp_dir = cli_runner_and_dir
     original_content = request.param
     path = tmp_dir / "file.md"
     path.write_text(original_content)
     return FixtureFile(path=path, content=original_content)
+
+
+@pytest.fixture
+def files_with_content(
+    cli_runner_and_dir, request: dict[str, str]
+) -> list[FixtureFile]:
+    _, tmp_dir = cli_runner_and_dir
+    files = []
+    for file_name, content in request.param.items():
+        path = tmp_dir / file_name
+        path.write_text(content)
+        files.append(FixtureFile(path=path, content=content))
+    return files
 
 
 @pytest.fixture

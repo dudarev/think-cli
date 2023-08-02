@@ -11,20 +11,10 @@ import sys
 
 import click
 
-
-def does_start_from_timestamp(text: str) -> bool:
-    """
-    Determines if the text is a timestamp header.
-
-    Examples:
-    2021-01-01
-    2021-01-01 - Some title
-    2021-01-01 12:00:00 - Some title
-    """
-    return re.match(r"^\d{4}-\d{2}-\d{2}", text.strip()) is not None
+from think.markdown import does_start_from_timestamp
 
 
-def do_sort(text: str, reverse=False) -> str:
+def sort_timestamps_in_text(text: str, reverse=False) -> str:
     """Sorts all timestamps in the text."""
 
     # split the text based on `^## ` (h2 header)
@@ -72,5 +62,5 @@ def do_sort(text: str, reverse=False) -> str:
 )
 def sort_timestamps(input_file: click.Path, reverse: bool):
     input_path = Path(input_file)
-    out = do_sort(input_path.read_text(), reverse=reverse)
+    out = sort_timestamps_in_text(input_path.read_text(), reverse=reverse)
     input_path.write_text(out)

@@ -1,3 +1,8 @@
+"""
+Assets for testing the sort_timestamps.py command
+"""
+
+# main test
 CONTENT_TO_SORT = """
 Some text
 # Main title
@@ -54,6 +59,7 @@ Some other text
 Some other text"""
 
 
+# content without timestamp
 CONTENT_TO_SORT_WITH_NON_TIMESTAMP = """## H2 heading
 
 Some text
@@ -78,6 +84,7 @@ Some text
 Some other text"""
 
 
+# test with date
 CONTENT_WITH_DATE_TO_SORT = """
 
 ## 2020-01-01 12:00 - Some title
