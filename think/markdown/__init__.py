@@ -72,8 +72,6 @@ class MarkdownFile:
         # iterate over each section
         res = []
         for section_text in sections:
-            if not section_text.strip():
-                continue
             # get the title of the section
             section_lines = section_text.split("\n")
             # create the section

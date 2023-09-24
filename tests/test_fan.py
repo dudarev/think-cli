@@ -11,6 +11,8 @@ from tests.assets.fan_sections import (
     FILES_IN,
     FILES_OUT,
     FILE_NAME_TO_FAN,
+    FILES_IN_WITH_DOT,
+    FILES_OUT_WITH_DOT,
 )
 
 
@@ -19,6 +21,12 @@ from tests.assets.fan_sections import (
     [
         pytest.param(FILES_IN, FILE_NAME_TO_FAN, FILES_OUT, id="fan-out"),
         pytest.param(FILES_IN, EXISTING_FILE_NAME, FILES_IN, id="fan-out-not-changed"),
+        pytest.param(
+            FILES_IN_WITH_DOT,
+            FILE_NAME_TO_FAN,
+            FILES_OUT_WITH_DOT,
+            id="fan-out-with-dot",
+        ),
     ],
     indirect=["files_with_content"],
 )

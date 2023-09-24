@@ -4,6 +4,10 @@
 
 ## Future
 
+## Issues
+
+- Links [[example.com]] get parsed to [[example]] in `t fan` command
+
 ### Could do
 
 - Consider creating stub vaults for testing, see https://github.com/mfarragher/obsidiantools/tree/main/tests/vault-stub

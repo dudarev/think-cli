@@ -17,7 +17,8 @@ def do_fanning(input_path: Path):
     for section in input_file.get_h2_sections():
         links = get_links(str(section))
         for link in links:
-            link_path = (input_path.parent / f"{link}").with_suffix(".md")
+            # do not replace extension if it already exists, add .md
+            link_path = input_path.parent / (link + ".md")
             if not link_path.exists():
                 link_path.touch()
             link_file = MarkdownFile(link_path)

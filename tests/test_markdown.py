@@ -31,6 +31,11 @@ from think.markdown import get_links, MarkdownSection, MarkdownFile
             {"Link"},
             id="two-links-with-alias",
         ),
+        pytest.param(
+            "[[Link.com]]",
+            {"Link.com"},
+            id="link-with-dot",
+        ),
     ],
 )
 def test_get_links(text, expected_links):
