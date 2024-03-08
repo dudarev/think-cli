@@ -10,6 +10,7 @@
 
 ### Could do
 
+- Add command `bulk`, for example, `bulk add`.
 - Consider creating stub vaults for testing, see https://github.com/mfarragher/obsidiantools/tree/main/tests/vault-stub
 - Copy some notes from my Thinking vault
 - Add some linter
